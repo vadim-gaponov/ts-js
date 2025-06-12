@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Obsidian Clip draft 3.0
+// @name         Obsidian Clip draft 3.0.1
 // @namespace    http://tampermonkey.net/
 // @version      3.0.1
 // @description  Расширяет селект, добавляет в Obsidian: ленивое создание ссылки, структура по домену + безопасные имена + Text Fragment 📌🧠
