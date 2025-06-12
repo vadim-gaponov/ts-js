@@ -64,3 +64,5 @@ const Main = (() => {
         clipToObsidian
     };
 }
+
+// <EOF>

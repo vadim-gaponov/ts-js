@@ -163,3 +163,5 @@ const Utils = (() => {
         openObsidianURI
     };
 })();
+
+// <EOF>
