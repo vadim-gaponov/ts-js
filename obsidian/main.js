@@ -1,7 +1,7 @@
 // ==UserLibrary==
 // @name        Obsidian Main routins
 // @namespace   http://tampermonkey.net/
-// @version     3.5
+// @version     4.0
 // @description Obsidian utils and main proc
 // @license     MIT
 // ==/UserLibrary==
@@ -33,6 +33,24 @@ SOFTWARE.
 const Main = (() => {
 
     console.debug("obsidian/main: at '" + location.href + "'");
+
+    function makeHeader( rawTitle ) {
+        if( typeof rawTitle === 'undefined' ) {
+            rawTitle = '' ;
+        }
+        const baseUrl = location.href.split("#")[0];
+        const nowDate = new Date();
+        const isoDate = nowDate.toISOString().slice(0, 19).replace("T", " ").replaceAll( ":", "." );
+
+        return `---
+title: ${rawTitle.replaceAll(":", "‡")}
+source: ${baseUrl}
+created: ${isoDate}
+tags: [webclip, gpt]
+---
+`;
+    }
+
     async function clipToObsidian() {
         try {
             let text = Utils.expandSelection();
@@ -44,6 +62,7 @@ const Main = (() => {
                 }
             }
 
+
             const rawTitle   = document.title.trim() || 'Untitled';
             const rawDomain  = location.hostname.replace(/^www\./, '');
             const title      = Utils.safeFileName(rawTitle);
@@ -51,12 +70,12 @@ const Main = (() => {
             const date       = Utils.dateTimeString();
 
             const noteUrl    = Utils.selectionToURI(text);
+
             const tail       = `\n\n📌 [ref](${noteUrl})`;
             const filename   = `www/${domain}/${title} ${date.replaceAll(":","-")}`;
-
-            Utils.setClipboard(text + tail);
             console.debug(`Obsidian Clip: path [${filename}]`);
-            const finalContent = encodeURIComponent(text + tail);
+
+            Utils.setClipboard(makeHeader( rawTitle ) + text + tail);
             const uri = `obsidian://new?file=${encodeURIComponent(filename)}&clipboard`;
             Utils.openObsidianURI(uri);
         } 
