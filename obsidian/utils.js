@@ -84,6 +84,10 @@ const Utils = (() => {
         return null;
     }
 
+    function encodePart( text ) {
+        return encodeURIComponent(probe).replaceAll("(","%28").replaceAll( ")", "%29" );
+    }
+
     function textRange(fullClip,len) {
         let max = len;
         if( max === 'undefined' || max <= 0 ) {
@@ -95,14 +99,14 @@ const Utils = (() => {
         if( index > 0 ) {
             probe = probe.slice(0, index);
         }
-        const head = encodeURIComponent(probe);
+        const head = encodePart(probe);
 
         probe = fullClip.slice(-max);
         index = probe.indexOf(" ");
         if( index > 0 ) {
             probe = probe.slice(index + 1, max);
         }
-        const tail = encodeURIComponent(probe);
+        const tail = encodePart(probe);
 
         return `${head},${tail}`;
     }
