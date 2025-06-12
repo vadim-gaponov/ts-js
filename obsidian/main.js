@@ -40,12 +40,12 @@ const Main = (() => {
         }
         const baseUrl = location.href.split("#")[0];
         const nowDate = new Date();
-        const isoDate = nowDate.toISOString().slice(0, 19).replace("T", " ").replaceAll( ":", "." );
+        const isoDate = nowDate.toISOString().slice(0, 19).replace("T", " ");
 
         return `---
-title: ${rawTitle.replaceAll(":", "‡")}
-source: ${baseUrl}
-created: ${isoDate}
+title: "${rawTitle.replaceAll(":", "‡")}"
+source: "${baseUrl}"
+created: "${isoDate}"
 tags: [webclip, gpt]
 ---
 `;
