@@ -1,7 +1,7 @@
 // ==UserLibrary==
 // @name        Obsidian Main routins
 // @namespace   http://tampermonkey.net/
-// @version     6.0
+// @version     6.1
 // @description Obsidian utils and main proc
 // @license     MIT
 // @author      Sol=
@@ -73,7 +73,9 @@ tags: [webclip, gpt]
 
     async function clipToObsidian() {
         try {
-            let text = Utils.expandSelection();
+            Utils.expandSelection();
+            let text = window.getSelection().toString().trim();
+
             if (!text) {
                 text = await Utils.getClipboardText();
                 if (!text) {

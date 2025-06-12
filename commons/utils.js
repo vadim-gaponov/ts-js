@@ -1,7 +1,7 @@
 // ==UserLibrary==
 // @name        Common Utils
 // @namespace   http://tampermonkey.net/
-// @version     6.0
+// @version     6.1
 // @description common utils
 // @license     MIT
 // require      "@grant GM_setClipboard"
@@ -80,10 +80,8 @@ const Utils = (() => {
             newRange.setEnd(end.container, end.offset);
             selection.removeAllRanges();
             selection.addRange(newRange);
-            return newRange.toString();
         }
 
-        return null;
     }
 
     function encodePart( text ) {
