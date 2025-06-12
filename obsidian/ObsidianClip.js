@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         Obsidian Clip v5.1
+// @name         Obsidian Clip v6.0
 // @namespace    http://tampermonkey.net/
-// @version      5.1
+// @version      6.0
 // @description  Расширяет селект, добавляет в Obsidian: ленивое создание ссылки, структура по домену + безопасные имена + Text Fragment 📌🧠
 // @source       https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianClip.js
 // @downloadURL  https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianClip.js
 // @updateURL    https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianClip.js
-// @require      https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/utils.js
+// @require      https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/commons/utils.js
 // @require      https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/main.js
 // @author       Sol=
 // @match        *://*/*

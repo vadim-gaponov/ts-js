@@ -1,10 +1,11 @@
 // ==UserLibrary==
-// @name        Obsidian Utils
+// @name        Common Utils
 // @namespace   http://tampermonkey.net/
-// @version     5.1
-// @description Утилиты для Obsidian Clip: безопасные имена, выделения, ссылки 🔗🧠
+// @version     6.0
+// @description common utils
 // @license     MIT
 // require      "@grant GM_setClipboard"
+// @author      Sol=
 // ==/UserLibrary==
 
 /*!
@@ -123,24 +124,6 @@ const Utils = (() => {
         return `${baseUrl}#:~:text=${refRange}`;
     }
 
-    function getObsidianLink() {
-        if( typeof document.obsidianLink === 'undefined' || !document.obsidianLink ) {
-            console.debug("Obsidian Clip: new 'document.obsidianLink'");
-            document.obsidianLink = document.createElement('a');
-            document.obsidianLink.style.display = 'none';
-            document.body.appendChild(document.obsidianLink);
-        }
-        return document.obsidianLink;
-    }
-
-    function openObsidianURI(uri) {
-        const link = getObsidianLink();
-        console.debug(`Obsidian Clip: open [${uri}]`);
-
-        link.href = uri;
-        link.click();
-    }
-
     async function getClipboardText() {
         try {
             return await navigator.clipboard.readText();
@@ -169,8 +152,7 @@ const Utils = (() => {
         expandSelection,
         selectionToURI,
         getClipboardText,
-        setClipboard,
-        openObsidianURI
+        setClipboard
     };
 })();
 

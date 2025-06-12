@@ -1,9 +1,10 @@
 // ==UserLibrary==
 // @name        Obsidian Main routins
 // @namespace   http://tampermonkey.net/
-// @version     5.1
+// @version     6.0
 // @description Obsidian utils and main proc
 // @license     MIT
+// @author      Sol=
 // ==/UserLibrary==
 
 /*!
@@ -33,6 +34,25 @@ SOFTWARE.
 const Main = (() => {
 
     console.debug("obsidian/main: at '" + location.href + "'");
+
+    function getObsidianLink() {
+        if( typeof document.obsidianLink === 'undefined' || !document.obsidianLink ) {
+            console.debug("Obsidian Clip: new 'document.obsidianLink'");
+            document.obsidianLink = document.createElement('a');
+            document.obsidianLink.style.display = 'none';
+            document.body.appendChild(document.obsidianLink);
+        }
+        return document.obsidianLink;
+    }
+
+    function openObsidianURI(uri) {
+        const link = getObsidianLink();
+        console.debug(`Obsidian Clip: open [${uri}]`);
+
+        link.href = uri;
+        link.click();
+    }
+
 
     function makeHeader( rawTitle ) {
         if( typeof rawTitle === 'undefined' ) {
@@ -77,7 +97,7 @@ tags: [webclip, gpt]
 
             Utils.setClipboard(makeHeader( rawTitle ) + text + tail);
             const uri = `obsidian://new?file=${encodeURIComponent(filename)}&clipboard`;
-            Utils.openObsidianURI(uri);
+            openObsidianURI(uri);
         } 
         catch( error ) {
             console.error(error);
