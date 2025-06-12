@@ -1,7 +1,7 @@
 // ==UserLibrary==
 // @name        Obsidian Utils
 // @namespace   http://tampermonkey.net/
-// @version     3.5.2
+// @version     3.5.3
 // @description Утилиты для Obsidian Clip: безопасные имена, выделения, ссылки 🔗🧠
 // @license     MIT
 // require      "@grant GM_setClipboard"
@@ -99,6 +99,7 @@ const Utils = (() => {
             max = 36 ;
         }
 
+        console.debug("obsidian/utils.textRange: max == " + max);
         let probe = fullClip.slice(0, max);
         let index = probe.lastIndexOf(" ");
         if( index > 0 ) {
