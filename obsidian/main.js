@@ -62,6 +62,6 @@ const Main = (() => {
     return {
         clipToObsidian
     };
-}
+})();
 
 // <EOF>
