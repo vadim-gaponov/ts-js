@@ -114,7 +114,7 @@ const Utils = (() => {
     }
 
     function getObsidianLink() {
-        if( !document.obsidianLink ) {
+        if( typeof document.obsidianLink === 'undefined' || !document.obsidianLink ) {
             console.debug("Obsidian Clip: new 'document.obsidianLink'");
             document.obsidianLink = document.createElement('a');
             document.obsidianLink.style.display = 'none';
