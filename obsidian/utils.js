@@ -113,6 +113,7 @@ const Utils = (() => {
         return `${baseUrl}#:~:text=${refRange}`;
     }
 
+    /*
     function getObsidianLink() {
         if( typeof document.obsidianLink === 'undefined' || !document.obsidianLink ) {
             console.debug("Obsidian Clip: new 'document.obsidianLink'");
@@ -122,6 +123,7 @@ const Utils = (() => {
         }
         return document.obsidianLink;
     }
+    */
 
     function openObsidianURI(uri) {
         const link = getObsidianLink();

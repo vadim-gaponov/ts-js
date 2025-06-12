@@ -32,7 +32,6 @@ SOFTWARE.
 
 const Main = (() => {
 
-
     async function clipToObsidian() {
         let text = Utils.expandSelection();
         if (!text) {
