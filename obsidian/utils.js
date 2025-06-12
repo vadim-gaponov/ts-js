@@ -1,7 +1,7 @@
 // ==UserLibrary==
 // @name        Obsidian Utils
 // @namespace   http://tampermonkey.net/
-// @version     4.1
+// @version     5.0
 // @description Утилиты для Obsidian Clip: безопасные имена, выделения, ссылки 🔗🧠
 // @license     MIT
 // require      "@grant GM_setClipboard"

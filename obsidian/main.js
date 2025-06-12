@@ -1,7 +1,7 @@
 // ==UserLibrary==
 // @name        Obsidian Main routins
 // @namespace   http://tampermonkey.net/
-// @version     4.1
+// @version     5.0
 // @description Obsidian utils and main proc
 // @license     MIT
 // ==/UserLibrary==
@@ -43,7 +43,7 @@ const Main = (() => {
         const isoDate = nowDate.toISOString().slice(0, 19).replace("T", " ");
 
         return `---
-title: "${rawTitle.replaceAll(":", "‡")}"
+title: "${rawTitle}"
 source: "${baseUrl}"
 created: "${isoDate}"
 tags: [webclip, gpt]
