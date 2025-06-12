@@ -84,23 +84,23 @@ const Utils = (() => {
         return null;
     }
 
-    function textRange(selection,len) {
-        let maxLen = len;
-        if( maxLen === 'undefined' || maxLen <== 0 ) {
-            maxLen = 36 ;
+    function textRange(fullClip,len) {
+        let max = len;
+        if( max === 'undefined' || max <= 0 ) {
+            max = 36 ;
         }
 
-        let probe = selection.slice(0, maxLen);
+        let probe = fullClip.slice(0, max);
         let index = probe.lastIndexOf(" ");
         if( index > 0 ) {
             probe = probe.slice(0, index);
         }
         const head = encodeURIComponent(probe);
 
-        probe = selection.slice(-maxLen);
+        probe = fullClip.slice(-maxLen);
         index = probe.indexOf(" ");
         if( index > 0 ) {
-            probe = probe.slice(index + 1, maxLen);
+            probe = probe.slice(index + 1, max);
         }
         const tail = encodeURIComponent(probe);
 
