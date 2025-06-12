@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Obsidian Clip draft 3.0.4
+// @name         Obsidian Clip draft 3.0.5
 // @namespace    http://tampermonkey.net/
-// @version      3.0.4
+// @version      3.0.5
 // @description  Расширяет селект, добавляет в Obsidian: ленивое создание ссылки, структура по домену + безопасные имена + Text Fragment 📌🧠
 // @source       https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianClip.js
 // @downloadURL  https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianClip.js
@@ -21,6 +21,7 @@
     'use strict';
 
     console.debug("Obsidian Clip: at '" + location.href + "'");
+    /*
     function getObsidianLink() {
         if( typeof document.obsidianLink === 'undefined' || !document.obsidianLink ) {
             console.debug("Obsidian Clip: new 'document.obsidianLink'");
@@ -30,6 +31,7 @@
         }
         return document.obsidianLink;
     }
+    */
 
     Main.clipToObsidian() ;
 

@@ -97,7 +97,7 @@ const Utils = (() => {
         }
         const head = encodeURIComponent(probe);
 
-        probe = fullClip.slice(-maxLen);
+        probe = fullClip.slice(-max);
         index = probe.indexOf(" ");
         if( index > 0 ) {
             probe = probe.slice(index + 1, max);
@@ -113,7 +113,6 @@ const Utils = (() => {
         return `${baseUrl}#:~:text=${refRange}`;
     }
 
-    /*
     function getObsidianLink() {
         if( typeof document.obsidianLink === 'undefined' || !document.obsidianLink ) {
             console.debug("Obsidian Clip: new 'document.obsidianLink'");
@@ -123,7 +122,6 @@ const Utils = (() => {
         }
         return document.obsidianLink;
     }
-    */
 
     function openObsidianURI(uri) {
         const link = getObsidianLink();
