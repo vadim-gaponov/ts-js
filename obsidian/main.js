@@ -32,6 +32,7 @@ SOFTWARE.
 
 const Main = (() => {
 
+    console.debug("obsidian/main: at '" + location.href + "'");
     async function clipToObsidian() {
         let text = Utils.expandSelection();
         if (!text) {
@@ -50,7 +51,7 @@ const Main = (() => {
 
         const noteUrl    = Utils.selectionToURI(text);
         const tail       = `\n\n📌 [ref](${noteUrl})`;
-        const filename   = `${domain}/${title} ${date.replaceAll(":","-")}`;
+        const filename   = `www/${domain}/${title} ${date.replaceAll(":","-")}`;
 
         Utils.setClipboard(text + tail);
         console.debug(`Obsidian Clip: path [${filename}]`);

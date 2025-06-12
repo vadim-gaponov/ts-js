@@ -33,6 +33,7 @@ SOFTWARE.
 
 const Utils = (() => {
 
+    console.debug("obsidian/utils: at '" + location.href + "'");
     function safeFileName(name) {
         return name.replace(/[\\\/:*?"<>|#]/g, '›').replace(/\s+/g, '…').trim();
     }
