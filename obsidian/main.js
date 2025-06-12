@@ -34,30 +34,35 @@ const Main = (() => {
 
     console.debug("obsidian/main: at '" + location.href + "'");
     async function clipToObsidian() {
-        let text = Utils.expandSelection();
-        if (!text) {
-            text = await Utils.getClipboardText();
+        try {
+            let text = Utils.expandSelection();
             if (!text) {
-                alert("Нет текста в выделении или буфере обмена.");
-                return;
+                text = await Utils.getClipboardText();
+                if (!text) {
+                    alert("Нет текста в выделении или буфере обмена.");
+                    return;
+                }
             }
+
+            const rawTitle   = document.title.trim() || 'Untitled';
+            const rawDomain  = location.hostname.replace(/^www\./, '');
+            const title      = Utils.safeFileName(rawTitle);
+            const domain     = Utils.safeFileName(rawDomain);
+            const date       = Utils.dateTimeString();
+
+            const noteUrl    = Utils.selectionToURI(text);
+            const tail       = `\n\n📌 [ref](${noteUrl})`;
+            const filename   = `www/${domain}/${title} ${date.replaceAll(":","-")}`;
+
+            Utils.setClipboard(text + tail);
+            console.debug(`Obsidian Clip: path [${filename}]`);
+            const finalContent = encodeURIComponent(text + tail);
+            const uri = `obsidian://new?file=${encodeURIComponent(filename)}&clipboard`;
+            Utils.openObsidianURI(uri);
+        } 
+        catch( error ) {
+            console.error(error);
         }
-
-        const rawTitle   = document.title.trim() || 'Untitled';
-        const rawDomain  = location.hostname.replace(/^www\./, '');
-        const title      = Utils.safeFileName(rawTitle);
-        const domain     = Utils.safeFileName(rawDomain);
-        const date       = Utils.dateTimeString();
-
-        const noteUrl    = Utils.selectionToURI(text);
-        const tail       = `\n\n📌 [ref](${noteUrl})`;
-        const filename   = `www/${domain}/${title} ${date.replaceAll(":","-")}`;
-
-        Utils.setClipboard(text + tail);
-        console.debug(`Obsidian Clip: path [${filename}]`);
-        const finalContent = encodeURIComponent(text + tail);
-        const uri = `obsidian://new?file=${encodeURIComponent(filename)}&clipboard`;
-        Utils.openObsidianURI(uri);
     }
 
     return {
