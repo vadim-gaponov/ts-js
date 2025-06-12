@@ -1,7 +1,7 @@
 // ==UserLibrary==
 // @name        Obsidian Main routins
 // @namespace   http://tampermonkey.net/
-// @version     4.0
+// @version     4.1
 // @description Obsidian utils and main proc
 // @license     MIT
 // ==/UserLibrary==
