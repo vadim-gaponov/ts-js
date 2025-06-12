@@ -1,9 +1,9 @@
 // ==UserLibrary==
-// @name         Obsidian Main routins
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Obsidian utils and main proc
-// @license      MIT
+// @name        Obsidian Main routins
+// @namespace   http://tampermonkey.net/
+// @version     3.5
+// @description Obsidian utils and main proc
+// @license     MIT
 // ==/UserLibrary==
 
 /*!

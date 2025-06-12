@@ -1,10 +1,10 @@
 // ==UserLibrary==
-// @name         Obsidian Utils
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Утилиты для Obsidian Clip: безопасные имена, выделения, ссылки 🔗🧠
-// @license      MIT
-// require "@grant GM_setClipboard"
+// @name        Obsidian Utils
+// @namespace   http://tampermonkey.net/
+// @version     3.5
+// @description Утилиты для Obsidian Clip: безопасные имена, выделения, ссылки 🔗🧠
+// @license     MIT
+// require      "@grant GM_setClipboard"
 // ==/UserLibrary==
 
 /*!
@@ -86,7 +86,7 @@ const Utils = (() => {
     }
 
     function encodePart( text ) {
-        return encodeURIComponent(probe).replaceAll("(","%28").replaceAll( ")", "%29" );
+        return encodeURIComponent(text).replaceAll("\\(","%28").replaceAll( "\\)", "%29" );
     }
 
     function textRange(fullClip,len) {
