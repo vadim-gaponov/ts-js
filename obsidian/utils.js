@@ -4,6 +4,7 @@
 // @version      1.0
 // @description  Утилиты для Obsidian Clip: безопасные имена, выделения, ссылки 🔗🧠
 // @license      MIT
+// require "@grant GM_setClipboard"
 // ==/UserLibrary==
 
 /*!
@@ -36,7 +37,7 @@ const Utils = (() => {
         return name.replace(/[\\\/:*?"<>|#]/g, '›').replace(/\s+/g, '…').trim();
     }
 
-    function getDateTimeString() {
+    function dateTimeString() {
         const now = new Date();
         return now.toISOString().slice(0, 19).replace('T', ' ');
     }
@@ -83,7 +84,7 @@ const Utils = (() => {
         return null;
     }
 
-    function buildTextRange(selection,len) {
+    function textRange(selection,len) {
         let maxLen = len;
         if( maxLen === 'undefined' || maxLen <== 0 ) {
             maxLen = 36 ;
@@ -106,14 +107,15 @@ const Utils = (() => {
         return `${head},${tail}`;
     }
 
-    function selectionToLink(selection,len) {
-        const refRange = buildTextRange( selection );
+    function selectionToURI(selection,len) {
+        const refRange = textRange( selection );
         const baseUrl  = location.href.split("#")[0];
         return `${baseUrl}#:~:text=${refRange}`;
     }
 
     function getObsidianLink() {
         if( !document.obsidianLink ) {
+            console.debug("Obsidian Clip: new 'document.obsidianLink'");
             document.obsidianLink = document.createElement('a');
             document.obsidianLink.style.display = 'none';
             document.body.appendChild(document.obsidianLink);
@@ -123,6 +125,8 @@ const Utils = (() => {
 
     function openObsidianURI(uri) {
         const link = getObsidianLink();
+        console.debug(`Obsidian Clip: open [${uri}]`);
+
         link.href = uri;
         link.click();
     }
@@ -135,13 +139,27 @@ const Utils = (() => {
         }
     }
 
+    function setClipboard(text) {
+        if( typeof GM_setClipboard === 'function' ) {
+            GM_setClipboard(text);
+        }
+        else {
+            console.warn( "GM_setClipboard недоступен, используем navigator.clipboard" ) ;
+            navigator.clipboard.writeText?.(text).catch(
+                err => { alert("Ошибка копирования в буфер: " + err); }
+            ) ;
+        }
+    }
+
+
 
     return {
         safeFileName,
-        getDateTimeString,
+        dateTimeString,
         expandSelection,
-        selectionToLink,
-        openObsidianURI,
-        getClipboardText
+        selectionToURI,
+        getClipboardText,
+        setClipboard,
+        openObsidianURI
     };
 })();
