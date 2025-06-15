@@ -3,9 +3,9 @@
 // @namespace    http://tampermonkey.net/
 // @version      7.0
 // @description  adds handler for bookmarklet/
-// @source       https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianClip.js
-// @downloadURL  https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianClip.js
-// @updateURL    https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianClip.js
+// @source       https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianHook.js
+// @downloadURL  https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianHook.js
+// @updateURL    https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianHook.js
 // @require      https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/commons/utils.js
 // @require      https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/main.js
 // @author       Sol=
