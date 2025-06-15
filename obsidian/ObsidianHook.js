@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Obsidian Hook v7.0
+// @name         Obsidian Hook v7.0.1
 // @namespace    http://tampermonkey.net/
-// @version      7.0
+// @version      7.0.1
 // @description  adds handler for bookmarklet/
 // @source       https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianHook.js
 // @downloadURL  https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/ObsidianHook.js
@@ -21,7 +21,7 @@
     'use strict';
 
     console.debug("Obsidian Clip: at '" + location.href + "'");
-    document.obsidianHook = Main.clipToObsidian() ;
+    document.obsidianHook = Main.clipToObsidian ;
 
 })();
 
