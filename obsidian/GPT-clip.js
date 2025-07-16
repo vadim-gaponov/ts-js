@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         GPT-clip
 // @namespace    https://chat.openai.com/
-// @version      0.4.1
-// @description  Отладочная версия: Share → Markdown → Obsidian + логи в консоли
+// @version      0.4.2
+// @description  Генерация share-ссылки + Markdown-заметка в Obsidian с защитой от двойного клика и улучшенным поиском ссылки 📄🔗📥
 // @source       https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/GPT-clip.js
 // @downloadURL  https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/GPT-clip.js
 // @updateURL    https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/GPT-clip.js
@@ -16,35 +16,44 @@
 (function () {
     'use strict';
 
-    const vault = "ChatGPT-vault";
-    const folder = "GPT-Clip";
+    const vault = "ChatGPT";
+    const folder = "3.GPT-Clip";
+
+    let isProcessing = false;
 
     function log(msg) {
-        console.log(`[GPT→Obsidian DEBUG]: ${msg}`);
+        console.log(`[GPT→Obsidian]: ${msg}`);
     }
 
     function nowStr() {
         const d = new Date();
-        return d.toISOString().slice(0, 10);  // YYYY-MM-DD
+        return d.toISOString().slice(0, 10);
     }
 
     function waitForShareLink(cb) {
-        log("⏳ Ждём генерацию share-ссылки…");
+        log("⏳ Ждём появления share-ссылки…");
+
         const interval = setInterval(() => {
-            const input = document.querySelector("input[readonly][value^='https://chatgpt.com/share/']");
-            if (input) {
+            const el = [...document.querySelectorAll("input[readonly], textarea, div")]
+                .find(e => {
+                    const val = (e.value || e.innerText || "").trim();
+                    return val.startsWith("https://chatgpt.com/share/");
+                });
+
+            if (el) {
                 clearInterval(interval);
-                log("✅ Ссылка найдена: " + input.value);
-                cb(input.value);
+                const link = (el.value || el.innerText).trim();
+                log("✅ Share-ссылка найдена: " + link);
+                cb(link);
             }
-        }, 1000);
+        }, 500);
     }
 
     function clickShare(cb) {
         const btn = [...document.querySelectorAll("button")].find(el => el.textContent.includes("Share"));
         if (!btn) {
             log("❌ Кнопка Share не найдена!");
-            alert("Кнопка Share не найдена. Открой чат полностью.");
+            alert("Кнопка Share не найдена. Убедись, что ты в чате.");
             return;
         }
         log("🔘 Нажимаем кнопку Share");
@@ -58,25 +67,17 @@
 
         log("📋 Копируем Markdown в буфер");
         GM_setClipboard(md);
-        GM_notification({ title: "ChatGPT", text: "Ссылка скопирована и открыта в Obsidian", timeout: 3000 });
+        GM_notification({ title: "ChatGPT", text: "Ссылка скопирована и отправлена в Obsidian", timeout: 3000 });
 
-        log("🚀 Открываем Obsidian URL: " + url);
+        log("🚀 Открываем Obsidian: " + url);
         window.open(url);
+
+        isProcessing = false;
     }
 
     function insertButton() {
-        log("🧪 Пытаемся вставить кнопку…");
-
-        let target = document.querySelector("div.sticky.top-0");
-        if (!target) {
-            log("⚠️ Хедер не найден. Добавляем кнопку в body.");
-            target = document.body;
-        }
-
-        if (document.getElementById("gpt-md-clip")) {
-            log("🔁 Кнопка уже добавлена");
-            return;
-        }
+        let target = document.querySelector("div.sticky.top-0") || document.body;
+        if (document.getElementById("gpt-md-clip")) return;
 
         const btn = document.createElement("button");
         btn.id = "gpt-md-clip";
@@ -88,14 +89,20 @@
             z-index: 9999;
             padding: 6px 10px;
             font-size: 14px;
-            background: #e5e5e5;
-            border: 1px solid #999;
+            background: #f5f5f5;
             border-radius: 6px;
+            border: 1px solid #aaa;
             cursor: pointer;
         `;
 
         btn.onclick = () => {
-            log("🖱 Клик по кнопке → создаём share-ссылку");
+            if (isProcessing) {
+                log("⛔ Уже выполняется. Подожди.");
+                return;
+            }
+            isProcessing = true;
+            log("🖱 Клик по кнопке → запускаем процесс");
+
             clickShare((link) => {
                 const title = `ChatGPT Clip — ${nowStr()}`;
                 makeObsidianNote(title, link);
@@ -103,14 +110,12 @@
         };
 
         target.appendChild(btn);
-        log("✅ Кнопка вставлена");
+        log("✅ Кнопка добавлена");
     }
 
-    // Автоинициализация через MutationObserver
-    const observer = new MutationObserver(() => {
-        insertButton();
-    });
+    // Автоматическая вставка при загрузке
+    const observer = new MutationObserver(insertButton);
     observer.observe(document.body, { childList: true, subtree: true });
 
-    log("📡 Скрипт инициализирован");
+    log("📡 Скрипт активен и готов");
 })();
