@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GPT-clip
 // @namespace    https://chat.openai.com/
-// @version      0.2
+// @version      0.3
 // @description  Генерация share-ссылки + создание заметки в Obsidian
 // @source       https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/GPT-clip.js
 // @downloadURL  https://raw.githubusercontent.com/vadim-gaponov/ts-js/main/obsidian/GPT-clip.js
