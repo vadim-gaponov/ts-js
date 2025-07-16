@@ -77,6 +77,7 @@
         header.appendChild(btn);
     }
 
+    insertButton() ;
     const observer = new MutationObserver(insertButton);
     observer.observe(document.body, { childList: true, subtree: true });
 })();
